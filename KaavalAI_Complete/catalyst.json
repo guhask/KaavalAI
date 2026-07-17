@@ -1,0 +1,8 @@
+{
+  "appsail": [
+    {
+      "source": "kaavalai_catalyst_deploy\\kaavalai_deploy\\client",
+      "name": "kaavalai-dashboard"
+    }
+  ]
+}

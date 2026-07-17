@@ -1,0 +1,25 @@
+[debug] [2026-07-16T12:16:16.447Z] : 
+[debug] [2026-07-16T12:16:16.449Z] : ----------------------------------------------------------------------
+[debug] [2026-07-16T12:16:16.449Z] : Command:      C:\Program Files\nodejs\node.exe C:\Users\Sumit\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\bin\catalyst.js deploy
+[debug] [2026-07-16T12:16:16.450Z] : CLI Version:  1.26.2
+[debug] [2026-07-16T12:16:16.450Z] : Platform:     win32
+[debug] [2026-07-16T12:16:16.450Z] : Node Version: v22.16.0
+[debug] [2026-07-16T12:16:16.451Z] : Time:         Thu Jul 16 2026 17:46:16 GMT+0530 (India Standard Time)
+[debug] [2026-07-16T12:16:16.451Z] : ----------------------------------------------------------------------
+[debug] [2026-07-16T12:16:16.451Z] : 
+[debug] [2026-07-16T12:16:17.784Z] : > authorizing via signed-in user option
+[debug] [2026-07-16T12:16:17.785Z] : > command requires scopes: ["ZohoCatalyst.projects.ALL","ZohoCatalyst.functions.ALL","ZohoCatalyst.webapp.ALL","ZohoCatalyst.appsail.Update"]
+[debug] [2026-07-16T12:16:17.814Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/52324000000016001 
+
+[debug] [2026-07-16T12:16:18.018Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Thu, 16 Jul 2026 12:16:19 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+
+[debug] [2026-07-16T12:16:18.025Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/52324000000016001/environment 
+
+[debug] [2026-07-16T12:16:18.082Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Thu, 16 Jul 2026 12:16:19 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+
+[info] [2026-07-16T12:16:18.114Z] : 
+[info] [2026-07-16T12:16:18.114Z] : Executing predeploy script in C:\Users\Sumit\Downloads\Datathon\KaavalAI_Complete\KaavalAI_Complete\kaavalai_catalyst_deploy\kaavalai_deploy\client
+[debug] [2026-07-16T12:16:18.114Z] : Executing command > pip install --target=./lib -r requirements.txt
+[info] [2026-07-16T12:16:18.115Z] : > pip install --target=./lib -r requirements.txt

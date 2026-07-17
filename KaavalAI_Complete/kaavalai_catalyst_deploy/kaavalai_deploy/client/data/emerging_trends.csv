@@ -1,0 +1,144 @@
+district,crime_type,recent_monthly_rate,baseline_monthly_rate,pct_change,alert_level
+Chikkamagaluru,Crimes Against Body,0.6666666666666666,0.1111111111111111,500.0000000000001,Red Alert
+Mandya,Cyber Crime,0.6666666666666666,0.1111111111111111,500.0000000000001,Red Alert
+Bagalkot,Crimes Against Property,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Vijayanagara,Economic Offences,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Tumakuru,Narcotics (NDPS),0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Bagalkot,Cyber Crime,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Ballari,Crimes Against Women,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Chikkamagaluru,Crimes Against Property,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Kolar,Crimes Against Women,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Kolar,Economic Offences,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Chikkaballapur,Crimes Against Body,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Bengaluru Rural,Crimes Against Body,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Chikkaballapur,Crimes Against Women,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Shivamogga,Narcotics (NDPS),0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Shivamogga,Economic Offences,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Vijayapura,Crimes Against Women,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Mysuru,Economic Offences,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Ramanagara,Cyber Crime,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Kolar,Crimes Against Property,0.3333333333333333,0.1111111111111111,200.0,Red Alert
+Mysuru,Narcotics (NDPS),0.6666666666666666,0.2222222222222222,200.0,Red Alert
+Vijayapura,Crimes Against Body,0.3333333333333333,0.0,100.0,Red Alert
+Udupi,Crimes Against Women,0.6666666666666666,0.0,100.0,Red Alert
+Tumakuru,Economic Offences,0.3333333333333333,0.0,100.0,Red Alert
+Chamarajanagar,Narcotics (NDPS),0.6666666666666666,0.0,100.0,Red Alert
+Chamarajanagar,Economic Offences,0.3333333333333333,0.0,100.0,Red Alert
+Kodagu,Economic Offences,0.3333333333333333,0.0,100.0,Red Alert
+Ballari,Crimes Against Property,0.3333333333333333,0.0,100.0,Red Alert
+Raichur,Crimes Against Property,0.3333333333333333,0.0,100.0,Red Alert
+Yadgir,Crimes Against Women,0.3333333333333333,0.0,100.0,Red Alert
+Ramanagara,Narcotics (NDPS),0.3333333333333333,0.0,100.0,Red Alert
+Mysuru,Crimes Against Body,0.3333333333333333,0.0,100.0,Red Alert
+Ramanagara,Crimes Against Body,0.3333333333333333,0.0,100.0,Red Alert
+Kalaburagi,Crimes Against Body,0.3333333333333333,0.0,100.0,Red Alert
+Koppal,Crimes Against Women,0.3333333333333333,0.0,100.0,Red Alert
+Koppal,Cyber Crime,0.3333333333333333,0.0,100.0,Red Alert
+Gadag,Crimes Against Body,0.3333333333333333,0.0,100.0,Red Alert
+Bengaluru Urban,Crimes Against Body,0.6666666666666666,0.3333333333333333,100.0,Red Alert
+Bidar,Crimes Against Property,0.3333333333333333,0.0,100.0,Red Alert
+Chikkaballapur,Crimes Against Property,0.6666666666666666,0.0,100.0,Red Alert
+Hubballi-Dharwad,Crimes Against Women,0.3333333333333333,0.0,100.0,Red Alert
+Bagalkot,Narcotics (NDPS),0.3333333333333333,0.2222222222222222,50.0,Elevated
+Belagavi,Crimes Against Women,0.6666666666666666,0.4444444444444444,50.0,Elevated
+Belagavi,Crimes Against Property,0.3333333333333333,0.2222222222222222,50.0,Elevated
+Raichur,Narcotics (NDPS),0.3333333333333333,0.2222222222222222,50.0,Elevated
+Chamarajanagar,Crimes Against Property,0.3333333333333333,0.2222222222222222,50.0,Elevated
+Tumakuru,Cyber Crime,0.3333333333333333,0.2222222222222222,50.0,Elevated
+Shivamogga,Crimes Against Women,0.3333333333333333,0.2222222222222222,50.0,Elevated
+Koppal,Crimes Against Property,0.3333333333333333,0.3333333333333333,0.0,Stable
+Yadgir,Crimes Against Property,0.3333333333333333,0.3333333333333333,0.0,Stable
+Kodagu,Narcotics (NDPS),0.3333333333333333,0.3333333333333333,0.0,Stable
+Bengaluru Urban,Narcotics (NDPS),0.3333333333333333,0.3333333333333333,0.0,Stable
+Bengaluru Urban,Crimes Against Property,0.3333333333333333,0.4444444444444444,-25.0,Stable
+Hubballi-Dharwad,Economic Offences,0.3333333333333333,0.5555555555555556,-40.00000000000001,Stable
+Bagalkot,Economic Offences,0.0,0.2222222222222222,-100.0,Stable
+Ballari,Crimes Against Body,0.0,0.1111111111111111,-100.0,Stable
+Belagavi,Economic Offences,0.0,0.1111111111111111,-100.0,Stable
+Belagavi,Crimes Against Body,0.0,0.2222222222222222,-100.0,Stable
+Ballari,Economic Offences,0.0,0.3333333333333333,-100.0,Stable
+Ballari,Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable
+Bagalkot,Crimes Against Women,0.0,0.1111111111111111,-100.0,Stable
+Bagalkot,Crimes Against Body,0.0,0.1111111111111111,-100.0,Stable
+Chamarajanagar,Cyber Crime,0.0,0.1111111111111111,-100.0,Stable
+Chamarajanagar,Crimes Against Women,0.0,0.2222222222222222,-100.0,Stable
+Chitradurga,Crimes Against Women,0.0,0.3333333333333333,-100.0,Stable
+Chikkamagaluru,Narcotics (NDPS),0.0,0.3333333333333333,-100.0,Stable
+Chikkamagaluru,Cyber Crime,0.0,0.2222222222222222,-100.0,Stable
+Chikkamagaluru,Crimes Against Women,0.0,0.2222222222222222,-100.0,Stable
+Chikkaballapur,Economic Offences,0.0,0.1111111111111111,-100.0,Stable
+Chikkaballapur,Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable
+Bengaluru Urban,Crimes Against Women,0.0,0.3333333333333333,-100.0,Stable
+Bengaluru Urban,Economic Offences,0.0,0.4444444444444444,-100.0,Stable
+Chamarajanagar,Crimes Against Body,0.0,0.2222222222222222,-100.0,Stable
+Bidar,Economic Offences,0.0,0.1111111111111111,-100.0,Stable
+Bidar,Cyber Crime,0.0,0.2222222222222222,-100.0,Stable
+Bidar,Crimes Against Women,0.0,0.1111111111111111,-100.0,Stable
+Bidar,Crimes Against Body,0.0,0.2222222222222222,-100.0,Stable
+Bengaluru Rural,Economic Offences,0.0,0.1111111111111111,-100.0,Stable
+Bengaluru Rural,Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable
+Bengaluru Rural,Crimes Against Property,0.0,0.1111111111111111,-100.0,Stable
+Kolar,Cyber Crime,0.0,0.1111111111111111,-100.0,Stable
+Kodagu,Crimes Against Property,0.0,0.1111111111111111,-100.0,Stable
+Kodagu,Cyber Crime,0.0,0.1111111111111111,-100.0,Stable
+Hubballi-Dharwad,Crimes Against Body,0.0,0.1111111111111111,-100.0,Stable
+Haveri,Economic Offences,0.0,0.1111111111111111,-100.0,Stable
+Hubballi-Dharwad,Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable
+Kalaburagi,Crimes Against Property,0.0,0.2222222222222222,-100.0,Stable
+Kalaburagi,Crimes Against Women,0.0,0.1111111111111111,-100.0,Stable
+Gadag,Economic Offences,0.0,0.1111111111111111,-100.0,Stable
+Gadag,Narcotics (NDPS),0.0,0.2222222222222222,-100.0,Stable
+Hassan,Cyber Crime,0.0,0.1111111111111111,-100.0,Stable
+Hassan,Economic Offences,0.0,0.4444444444444444,-100.0,Stable
+Hassan,Narcotics (NDPS),0.0,0.2222222222222222,-100.0,Stable
+Haveri,Crimes Against Body,0.0,0.1111111111111111,-100.0,Stable
+Haveri,Crimes Against Property,0.0,0.2222222222222222,-100.0,Stable
+Haveri,Crimes Against Women,0.0,0.1111111111111111,-100.0,Stable
+Gadag,Cyber Crime,0.0,0.1111111111111111,-100.0,Stable
+Gadag,Crimes Against Women,0.0,0.1111111111111111,-100.0,Stable
+Davanagere,Economic Offences,0.0,0.2222222222222222,-100.0,Stable
+Davanagere,Crimes Against Women,0.0,0.1111111111111111,-100.0,Stable
+Chitradurga,Narcotics (NDPS),0.0,0.2222222222222222,-100.0,Stable
+Davanagere,Crimes Against Body,0.0,0.2222222222222222,-100.0,Stable
+Chitradurga,Economic Offences,0.0,0.2222222222222222,-100.0,Stable
+Bengaluru Urban,Cyber Crime,0.0,0.5555555555555556,-100.0,Stable
+Mangaluru (D.K.),Cyber Crime,0.0,0.2222222222222222,-100.0,Stable
+Mangaluru (D.K.),Crimes Against Women,0.0,0.1111111111111111,-100.0,Stable
+Mangaluru (D.K.),Crimes Against Property,0.0,0.1111111111111111,-100.0,Stable
+Mangaluru (D.K.),Crimes Against Body,0.0,0.1111111111111111,-100.0,Stable
+Kolar,Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable
+Koppal,Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable
+Mandya,Crimes Against Body,0.0,0.1111111111111111,-100.0,Stable
+Koppal,Crimes Against Body,0.0,0.1111111111111111,-100.0,Stable
+Ramanagara,Economic Offences,0.0,0.2222222222222222,-100.0,Stable
+Ramanagara,Crimes Against Women,0.0,0.2222222222222222,-100.0,Stable
+Raichur,Economic Offences,0.0,0.2222222222222222,-100.0,Stable
+Ramanagara,Crimes Against Property,0.0,0.1111111111111111,-100.0,Stable
+Mysuru,Crimes Against Women,0.0,0.1111111111111111,-100.0,Stable
+Mangaluru (D.K.),Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable
+Mangaluru (D.K.),Economic Offences,0.0,0.2222222222222222,-100.0,Stable
+Raichur,Cyber Crime,0.0,0.2222222222222222,-100.0,Stable
+Mandya,Crimes Against Property,0.0,0.1111111111111111,-100.0,Stable
+Mandya,Crimes Against Women,0.0,0.2222222222222222,-100.0,Stable
+Mandya,Economic Offences,0.0,0.1111111111111111,-100.0,Stable
+Mandya,Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable
+Tumakuru,Crimes Against Property,0.0,0.2222222222222222,-100.0,Stable
+Shivamogga,Crimes Against Body,0.0,0.1111111111111111,-100.0,Stable
+Udupi,Crimes Against Body,0.0,0.1111111111111111,-100.0,Stable
+Shivamogga,Crimes Against Property,0.0,0.2222222222222222,-100.0,Stable
+Uttara Kannada,Crimes Against Women,0.0,0.1111111111111111,-100.0,Stable
+Uttara Kannada,Crimes Against Property,0.0,0.2222222222222222,-100.0,Stable
+Uttara Kannada,Crimes Against Body,0.0,0.2222222222222222,-100.0,Stable
+Udupi,Economic Offences,0.0,0.2222222222222222,-100.0,Stable
+Udupi,Cyber Crime,0.0,0.1111111111111111,-100.0,Stable
+Vijayanagara,Cyber Crime,0.0,0.2222222222222222,-100.0,Stable
+Uttara Kannada,Cyber Crime,0.0,0.2222222222222222,-100.0,Stable
+Uttara Kannada,Economic Offences,0.0,0.2222222222222222,-100.0,Stable
+Vijayapura,Crimes Against Property,0.0,0.2222222222222222,-100.0,Stable
+Vijayanagara,Narcotics (NDPS),0.0,0.3333333333333333,-100.0,Stable
+Uttara Kannada,Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable
+Vijayapura,Cyber Crime,0.0,0.1111111111111111,-100.0,Stable
+Yadgir,Crimes Against Body,0.0,0.1111111111111111,-100.0,Stable
+Vijayapura,Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable
+Yadgir,Cyber Crime,0.0,0.2222222222222222,-100.0,Stable
+Yadgir,Narcotics (NDPS),0.0,0.1111111111111111,-100.0,Stable

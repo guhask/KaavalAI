@@ -1,0 +1,94 @@
+UnitID,UnitName,TypeID,ParentUnit,NationalityID,StateID,DistrictID,Active,UnitCode4Digit
+1,Bengaluru Urban PS-1,1,,1,1,4430,1,0001
+2,Bengaluru Urban PS-2,1,,1,1,4430,1,0002
+3,Bengaluru Urban PS-3,1,,1,1,4430,1,0003
+4,Bengaluru Urban PS-4,1,,1,1,4430,1,0004
+5,Bengaluru Rural PS-1,1,,1,1,1001,1,0005
+6,Bengaluru Rural PS-2,1,,1,1,1001,1,0006
+7,Mysuru PS-1,1,,1,1,1002,1,0007
+8,Mysuru PS-2,1,,1,1,1002,1,0008
+9,Belagavi PS-1,1,,1,1,1003,1,0009
+10,Belagavi PS-2,1,,1,1,1003,1,0010
+11,Belagavi PS-3,1,,1,1,1003,1,0011
+12,Belagavi PS-4,1,,1,1,1003,1,0012
+13,Kalaburagi PS-1,1,,1,1,1004,1,0013
+14,Kalaburagi PS-2,1,,1,1,1004,1,0014
+15,Kalaburagi PS-3,1,,1,1,1004,1,0015
+16,Mangaluru (D.K.) PS-1,1,,1,1,1005,1,0016
+17,Mangaluru (D.K.) PS-2,1,,1,1,1005,1,0017
+18,Hubballi-Dharwad PS-1,1,,1,1,1006,1,0018
+19,Hubballi-Dharwad PS-2,1,,1,1,1006,1,0019
+20,Ballari PS-1,1,,1,1,1007,1,0020
+21,Ballari PS-2,1,,1,1,1007,1,0021
+22,Tumakuru PS-1,1,,1,1,1008,1,0022
+23,Tumakuru PS-2,1,,1,1,1008,1,0023
+24,Tumakuru PS-3,1,,1,1,1008,1,0024
+25,Tumakuru PS-4,1,,1,1,1008,1,0025
+26,Shivamogga PS-1,1,,1,1,1009,1,0026
+27,Shivamogga PS-2,1,,1,1,1009,1,0027
+28,Vijayapura PS-1,1,,1,1,1010,1,0028
+29,Vijayapura PS-2,1,,1,1,1010,1,0029
+30,Vijayapura PS-3,1,,1,1,1010,1,0030
+31,Vijayapura PS-4,1,,1,1,1010,1,0031
+32,Raichur PS-1,1,,1,1,1011,1,0032
+33,Raichur PS-2,1,,1,1,1011,1,0033
+34,Raichur PS-3,1,,1,1,1011,1,0034
+35,Raichur PS-4,1,,1,1,1011,1,0035
+36,Bidar PS-1,1,,1,1,1012,1,0036
+37,Bidar PS-2,1,,1,1,1012,1,0037
+38,Bidar PS-3,1,,1,1,1012,1,0038
+39,Bidar PS-4,1,,1,1,1012,1,0039
+40,Chitradurga PS-1,1,,1,1,1013,1,0040
+41,Chitradurga PS-2,1,,1,1,1013,1,0041
+42,Davanagere PS-1,1,,1,1,1014,1,0042
+43,Davanagere PS-2,1,,1,1,1014,1,0043
+44,Davanagere PS-3,1,,1,1,1014,1,0044
+45,Davanagere PS-4,1,,1,1,1014,1,0045
+46,Hassan PS-1,1,,1,1,1015,1,0046
+47,Hassan PS-2,1,,1,1,1015,1,0047
+48,Hassan PS-3,1,,1,1,1015,1,0048
+49,Mandya PS-1,1,,1,1,1016,1,0049
+50,Mandya PS-2,1,,1,1,1016,1,0050
+51,Kodagu PS-1,1,,1,1,1017,1,0051
+52,Kodagu PS-2,1,,1,1,1017,1,0052
+53,Chikkamagaluru PS-1,1,,1,1,1018,1,0053
+54,Chikkamagaluru PS-2,1,,1,1,1018,1,0054
+55,Udupi PS-1,1,,1,1,1019,1,0055
+56,Udupi PS-2,1,,1,1,1019,1,0056
+57,Uttara Kannada PS-1,1,,1,1,1020,1,0057
+58,Uttara Kannada PS-2,1,,1,1,1020,1,0058
+59,Kolar PS-1,1,,1,1,1021,1,0059
+60,Kolar PS-2,1,,1,1,1021,1,0060
+61,Kolar PS-3,1,,1,1,1021,1,0061
+62,Kolar PS-4,1,,1,1,1021,1,0062
+63,Chikkaballapur PS-1,1,,1,1,1022,1,0063
+64,Chikkaballapur PS-2,1,,1,1,1022,1,0064
+65,Chikkaballapur PS-3,1,,1,1,1022,1,0065
+66,Chikkaballapur PS-4,1,,1,1,1022,1,0066
+67,Ramanagara PS-1,1,,1,1,1023,1,0067
+68,Ramanagara PS-2,1,,1,1,1023,1,0068
+69,Yadgir PS-1,1,,1,1,1024,1,0069
+70,Yadgir PS-2,1,,1,1,1024,1,0070
+71,Yadgir PS-3,1,,1,1,1024,1,0071
+72,Yadgir PS-4,1,,1,1,1024,1,0072
+73,Koppal PS-1,1,,1,1,1025,1,0073
+74,Koppal PS-2,1,,1,1,1025,1,0074
+75,Gadag PS-1,1,,1,1,1026,1,0075
+76,Gadag PS-2,1,,1,1,1026,1,0076
+77,Gadag PS-3,1,,1,1,1026,1,0077
+78,Gadag PS-4,1,,1,1,1026,1,0078
+79,Haveri PS-1,1,,1,1,1027,1,0079
+80,Haveri PS-2,1,,1,1,1027,1,0080
+81,Haveri PS-3,1,,1,1,1027,1,0081
+82,Haveri PS-4,1,,1,1,1027,1,0082
+83,Bagalkot PS-1,1,,1,1,1028,1,0083
+84,Bagalkot PS-2,1,,1,1,1028,1,0084
+85,Bagalkot PS-3,1,,1,1,1028,1,0085
+86,Bagalkot PS-4,1,,1,1,1028,1,0086
+87,Chamarajanagar PS-1,1,,1,1,1029,1,0087
+88,Chamarajanagar PS-2,1,,1,1,1029,1,0088
+89,Chamarajanagar PS-3,1,,1,1,1029,1,0089
+90,Chamarajanagar PS-4,1,,1,1,1029,1,0090
+91,Vijayanagara PS-1,1,,1,1,1030,1,0091
+92,Vijayanagara PS-2,1,,1,1,1030,1,0092
+93,Vijayanagara PS-3,1,,1,1,1030,1,0093

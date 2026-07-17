@@ -1,0 +1,13 @@
+{
+  "command": "python -m streamlit run app.py --server.port 9000 --server.address 0.0.0.0 --server.headless true",
+  "build_path": ".",
+  "stack": "python_3_11",
+  "env_variables": {
+    "PYTHONPATH": "/app/lib"
+  },
+  "memory": 512,
+  "scripts": {
+    "predeploy": "pip install --target=./lib -r requirements.txt"
+  },
+  "package_json": {}
+}

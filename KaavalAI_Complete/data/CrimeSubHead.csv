@@ -1,0 +1,14 @@
+CrimeSubHeadID,CrimeHeadID,CrimeHeadName,SeqID
+1,1,Murder,1
+2,1,Grievous Hurt,2
+3,2,Robbery,1
+4,2,Theft,2
+5,2,House Break-in,3
+6,3,Dowry Death,1
+7,3,Assault on Women,2
+8,4,Cheating,1
+9,4,Criminal Breach of Trust,2
+10,5,Online Fraud,1
+11,5,Phishing,2
+12,6,Drug Possession,1
+13,6,Drug Trafficking,2
