@@ -1,2 +1,0 @@
--e zcatalyst-sdk
-requests

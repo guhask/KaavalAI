@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KaavalAI — Crime Intelligence Platform</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="header">
+  <svg class="shield" viewBox="0 0 512 480" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 156 130 C 156 100 185 88 256 88 C 327 88 356 100 356 130 L 356 215 C 356 300 308 355 256 385 C 204 355 156 300 156 215 Z" fill="#0B2545" stroke="#C9A227" stroke-width="6"/>
+    <path d="M 191 208 Q 256 168 321 208 Q 256 248 191 208 Z" fill="none" stroke="#C9A227" stroke-width="6"/>
+    <circle cx="256" cy="208" r="13" fill="#C9A227"/>
+  </svg>
+  <div>
+    <h1>Kaaval<span>AI</span></h1>
+    <div class="subtitle">Crime Intelligence & Analytics Platform · Karnataka State Police · Datathon 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="kpi-strip">
+    <div class="kpi-card"><div class="label">Total FIRs</div><div class="value">{{ kpis.total_firs }}</div></div>
+    <div class="kpi-card"><div class="label">Districts</div><div class="value">{{ kpis.districts }}</div></div>
+    <div class="kpi-card"><div class="label">Active Hotspots</div><div class="value">{{ kpis.hotspots }}</div></div>
+    <div class="kpi-card"><div class="label">Crime Networks</div><div class="value">{{ kpis.networks }}</div></div>
+    <div class="kpi-card alert"><div class="label">Red Alerts</div><div class="value">{{ kpis.red_alerts }}</div></div>
+  </div>
+
+  <form class="filter-bar" method="get" onsubmit="return prepareSubmit()">
+    <input type="hidden" name="tab" value="{{ active_tab }}">
+    <input type="hidden" name="district" id="district-hidden">
+    <input type="hidden" name="crime_type" id="crime-type-hidden">
+    <div class="filter-group">
+      <label>District</label>
+      <select multiple class="select-multi" id="district-select">
+        {% for d in districts %}
+        <option value="{{ d }}" {% if d in sel_districts %}selected{% endif %}>{{ d }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Crime Type</label>
+      <select multiple class="select-multi" id="crime-type-select">
+        {% for c in crime_types %}
+        <option value="{{ c }}" {% if c in sel_crime_types %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit">Apply Filters</button>
+  </form>
+
+  <script>
+    // Sends filters as ONE comma-joined query param each, rather than a
+    // repeated key per selected value — the previous approach (district=A&
+    // district=B&...) was rejected by the AppSail gateway with
+    // INVALID_NUMBER_OF_INPUT, regardless of how many values were included.
+    function prepareSubmit() {
+      function joinedValues(selectId) {
+        const select = document.getElementById(selectId);
+        const values = Array.from(select.options).filter(o => o.selected).map(o => o.value);
+        return values.length ? values.join(',') : Array.from(select.options).map(o => o.value).join(',');
+      }
+      document.getElementById('district-hidden').value = joinedValues('district-select');
+      document.getElementById('crime-type-hidden').value = joinedValues('crime-type-select');
+      return true;
+    }
+  </script>
+
+  <div class="tabs">
+    <a href="?tab=map&district={{ district_param }}&crime_type={{ crime_type_param }}" class="{% if active_tab=='map' %}active{% endif %}">🗺️ Hotspot Map</a>
+    <a href="?tab=network&district={{ district_param }}&crime_type={{ crime_type_param }}" class="{% if active_tab=='network' %}active{% endif %}">🕸️ Criminal Network</a>
+    <a href="?tab=trends&district={{ district_param }}&crime_type={{ crime_type_param }}" class="{% if active_tab=='trends' %}active{% endif %}">📈 Trends & Alerts</a>
+    <a href="?tab=risk&district={{ district_param }}&crime_type={{ crime_type_param }}" class="{% if active_tab=='risk' %}active{% endif %}">🎯 Risk Forecast</a>
+    <a href="?tab=ask&district={{ district_param }}&crime_type={{ crime_type_param }}" class="{% if active_tab=='ask' %}active{% endif %}">💬 Ask KaavalAI</a>
+  </div>
+
+  {% if active_tab == 'map' %}
+  <div class="panel">
+    <h2>Spatiotemporal Crime Hotspots</h2>
+    <div class="desc">DBSCAN clustering on FIR coordinates, grouped by district + crime major-head.</div>
+    {{ map_div | safe }}
+  </div>
+  <div class="grid-2">
+    <div class="panel">
+      <h2>District Drill-down</h2>
+      <div class="desc">FIR volume by district (top 15)</div>
+      {{ district_bar_div | safe }}
+    </div>
+    <div class="panel">
+      <h2>Top Hotspot Clusters</h2>
+      <div class="desc">Highest-density spatial clusters detected</div>
+      <table>
+        <tr><th>District</th><th>Crime Type</th><th>Incidents</th></tr>
+        {% for h in top_hotspots %}
+        <tr><td>{{ h.district }}</td><td>{{ h.crime_type }}</td><td>{{ h.incident_count }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if active_tab == 'network' %}
+  <div class="panel">
+    <h2>Criminal Network & Organized Crime Group Detection</h2>
+    <div class="desc">Nodes = persons resolved across cases. Edges = co-accused on the same FIR. Red nodes = 3+ linked cases.</div>
+    <form method="get" style="margin-bottom:16px;">
+      <input type="hidden" name="tab" value="network">
+      <input type="hidden" name="district" value="{{ district_param }}">
+      <input type="hidden" name="crime_type" value="{{ crime_type_param }}">
+      <div class="filter-group" style="display:inline-block;">
+        <label>Select network</label>
+        <select name="group_id" onchange="this.form.submit()">
+          {% for g in top_groups %}
+          <option value="{{ g.group_id }}" {% if g.group_id==sel_group %}selected{% endif %}>{{ g.group_id }} ({{ g.members }} members)</option>
+          {% endfor %}
+        </select>
+      </div>
+    </form>
+    {% if shown_nodes < full_nodes %}
+    <div class="desc">Showing a {{ shown_nodes }}-node neighborhood around the most central figure (full network has {{ full_nodes }} members).</div>
+    {% endif %}
+    {{ network_div | safe }}
+  </div>
+  {% endif %}
+
+  {% if active_tab == 'trends' %}
+  <div class="panel">
+    <h2>Monthly Trend by Crime Type</h2>
+    {{ trend_line_div | safe }}
+  </div>
+  <div class="panel">
+    <h2>Emerging Crime Trend Alerts</h2>
+    <div class="desc">Recent 3-month FIR rate vs 12-month baseline</div>
+    <table>
+      <tr><th>District</th><th>Crime Type</th><th>% Change</th><th>Alert</th></tr>
+      {% for t in top_trends %}
+      <tr>
+        <td>{{ t.district }}</td><td>{{ t.crime_type }}</td><td>{{ "%.0f"|format(t.pct_change) }}%</td>
+        <td>{% if t.alert_level == 'Red Alert' %}<span class="badge-red"><span class="pulse-dot"></span> Red Alert</span>{% else %}{{ t.alert_display }}{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% endif %}
+
+  {% if active_tab == 'risk' %}
+  <div class="grid-2">
+    <div class="panel">
+      <h2>Predictive Risk Scoring</h2>
+      <div class="desc">District-level next-month risk forecast (0-100)</div>
+      {{ risk_bar_div | safe }}
+    </div>
+    <div class="panel">
+      <h2>Explainable AI — Feature Importance</h2>
+      <div class="desc">Every score traces back to these underlying factors</div>
+      {{ feature_importance_div | safe }}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if active_tab == 'ask' %}
+  <div class="panel">
+    <h2>💬 Ask KaavalAI</h2>
+    <div class="desc">Natural language query over crime records (production version: Catalyst QuickML)</div>
+    <form class="ask-form" method="get">
+      <input type="hidden" name="tab" value="ask">
+      <input type="hidden" name="district" value="{{ district_param }}">
+      <input type="hidden" name="crime_type" value="{{ crime_type_param }}">
+      <input type="text" name="question" value="{{ nl_question or '' }}" placeholder="e.g. Show me theft cases in Mysuru">
+      <button type="submit">Ask</button>
+    </form>
+    {% if nl_summary %}
+    <div class="answer-box">{{ nl_summary }}</div>
+    <table>
+      <tr><th>Crime No</th><th>District</th><th>Crime Type</th><th>Status</th></tr>
+      {% for r in nl_results %}
+      <tr><td>{{ r.CrimeNo }}</td><td>{{ r.district }}</td><td>{{ r.crime_type }}</td><td>{{ r.case_status }}</td></tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+  </div>
+  {% endif %}
+
+</div>
+</body>
+</html>

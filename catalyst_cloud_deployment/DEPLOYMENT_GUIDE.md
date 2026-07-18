@@ -37,6 +37,17 @@ hand-write it; just let `catalyst function:add` create it, then drop our
 `main.py` logic in.
 
 ## 3. Data Store (do this before anything else touches data)
+
+**Scoping decision (documented, not hidden):** the dashboard (`app.py`) reads
+from bundled CSVs in `client/data/`, not live ZCQL queries against Data
+Store. Data Store still genuinely holds the full dataset — that satisfies
+the "relational database" Catalyst requirement — but a live-query rewrite
+was scoped out given the submission timeline. `client/data/` is a
+synchronized snapshot of the same data now sitting in Data Store. Wiring
+the dashboard to query Data Store directly (via ZCQL, using OAuth refresh-
+token credentials since Streamlit isn't Flask-request-compatible the way
+Catalyst's AppSail SDK docs assume) is the clear, documented next step —
+see the roadmap slide in the submission deck.
 1. Follow `catalyst_datastore_schema.md` — create all 26 tables/columns via
    console, in the 5 dependency tiers listed (lookups first).
 2. Create a Stratus bucket named `kaavalai-bulk-data`.

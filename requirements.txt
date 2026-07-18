@@ -1,8 +1,5 @@
-streamlit
+flask
 pandas
 numpy
 plotly
 networkx
-pyvis
-scikit-learn
-faker
