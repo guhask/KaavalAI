@@ -8,8 +8,8 @@ hotspot detection, criminal network analysis, predictive risk scoring, and
 natural language querying over crime records, built on the official KSP FIR
 ER schema and deployed natively on Zoho Catalyst.
 
-**Live demo:** [add your AppSail URL here]
-**Demo video:** [add your video link here]
+**Live demo:** https://kaavalai-dashboard-50044016067.development.catalystappsail.in/
+**Demo video:** Coming soon ...
 
 ---
 
