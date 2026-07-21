@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KaavalAI — Crime Intelligence Platform</title>
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -14,28 +16,34 @@
     <path d="M 191 208 Q 256 168 321 208 Q 256 248 191 208 Z" fill="none" stroke="#C9A227" stroke-width="6"/>
     <circle cx="256" cy="208" r="13" fill="#C9A227"/>
   </svg>
-  <div>
+  <div style="flex:1;">
     <h1>Kaaval<span>AI</span></h1>
     <div class="subtitle">Crime Intelligence & Analytics Platform · Karnataka State Police · Datathon 2026</div>
+  </div>
+  <div class="lang-toggle">
+    <a href="?tab={{ active_tab }}&district={{ district_param }}&crime_type={{ crime_type_param }}&lang=en" class="{% if lang=='en' %}active{% endif %}">EN</a>
+    <span>|</span>
+    <a href="?tab={{ active_tab }}&district={{ district_param }}&crime_type={{ crime_type_param }}&lang=kn" class="{% if lang=='kn' %}active{% endif %}">ಕನ್ನಡ</a>
   </div>
 </div>
 
 <div class="container">
 
   <div class="kpi-strip">
-    <div class="kpi-card"><div class="label">Total FIRs</div><div class="value">{{ kpis.total_firs }}</div></div>
-    <div class="kpi-card"><div class="label">Districts</div><div class="value">{{ kpis.districts }}</div></div>
-    <div class="kpi-card"><div class="label">Active Hotspots</div><div class="value">{{ kpis.hotspots }}</div></div>
-    <div class="kpi-card"><div class="label">Crime Networks</div><div class="value">{{ kpis.networks }}</div></div>
-    <div class="kpi-card alert"><div class="label">Red Alerts</div><div class="value">{{ kpis.red_alerts }}</div></div>
+    <div class="kpi-card"><div class="label">{{ T("Total FIRs", lang) }}</div><div class="value">{{ kpis.total_firs }}</div></div>
+    <div class="kpi-card"><div class="label">{{ T("Districts", lang) }}</div><div class="value">{{ kpis.districts }}</div></div>
+    <div class="kpi-card"><div class="label">{{ T("Active Hotspots", lang) }}</div><div class="value">{{ kpis.hotspots }}</div></div>
+    <div class="kpi-card"><div class="label">{{ T("Crime Networks", lang) }}</div><div class="value">{{ kpis.networks }}</div></div>
+    <div class="kpi-card alert"><div class="label">{{ T("Red Alerts", lang) }}</div><div class="value">{{ kpis.red_alerts }}</div></div>
   </div>
 
   <form class="filter-bar" method="get" onsubmit="return prepareSubmit()">
     <input type="hidden" name="tab" value="{{ active_tab }}">
+    <input type="hidden" name="lang" value="{{ lang }}">
     <input type="hidden" name="district" id="district-hidden">
     <input type="hidden" name="crime_type" id="crime-type-hidden">
     <div class="filter-group">
-      <label>District</label>
+      <label>{{ T("District", lang) }}</label>
       <select multiple class="select-multi" id="district-select">
         {% for d in districts %}
         <option value="{{ d }}" {% if d in sel_districts %}selected{% endif %}>{{ d }}</option>
@@ -43,14 +51,15 @@
       </select>
     </div>
     <div class="filter-group">
-      <label>Crime Type</label>
+      <label>{{ T("Crime Type", lang) }}</label>
       <select multiple class="select-multi" id="crime-type-select">
         {% for c in crime_types %}
         <option value="{{ c }}" {% if c in sel_crime_types %}selected{% endif %}>{{ c }}</option>
         {% endfor %}
       </select>
     </div>
-    <button type="submit">Apply Filters</button>
+    <button type="submit">{{ T("Apply Filters", lang) }}</button>
+    <a href="/export?district={{ district_param }}&crime_type={{ crime_type_param }}" class="export-btn">⬇ Export CSV</a>
   </form>
 
   <script>
@@ -71,14 +80,22 @@
   </script>
 
   <div class="tabs">
-    <a href="?tab=map&district={{ district_param }}&crime_type={{ crime_type_param }}" class="{% if active_tab=='map' %}active{% endif %}">🗺️ Hotspot Map</a>
-    <a href="?tab=network&district={{ district_param }}&crime_type={{ crime_type_param }}" class="{% if active_tab=='network' %}active{% endif %}">🕸️ Criminal Network</a>
-    <a href="?tab=trends&district={{ district_param }}&crime_type={{ crime_type_param }}" class="{% if active_tab=='trends' %}active{% endif %}">📈 Trends & Alerts</a>
-    <a href="?tab=risk&district={{ district_param }}&crime_type={{ crime_type_param }}" class="{% if active_tab=='risk' %}active{% endif %}">🎯 Risk Forecast</a>
-    <a href="?tab=ask&district={{ district_param }}&crime_type={{ crime_type_param }}" class="{% if active_tab=='ask' %}active{% endif %}">💬 Ask KaavalAI</a>
+    <a href="?tab=map&district={{ district_param }}&crime_type={{ crime_type_param }}&lang={{ lang }}" class="{% if active_tab=='map' %}active{% endif %}">🗺️ {{ T("Hotspot Map", lang) }}</a>
+    <a href="?tab=network&district={{ district_param }}&crime_type={{ crime_type_param }}&lang={{ lang }}" class="{% if active_tab=='network' %}active{% endif %}">🕸️ {{ T("Criminal Network", lang) }}</a>
+    <a href="?tab=trends&district={{ district_param }}&crime_type={{ crime_type_param }}&lang={{ lang }}" class="{% if active_tab=='trends' %}active{% endif %}">📈 {{ T("Trends & Alerts", lang) }}</a>
+    <a href="?tab=risk&district={{ district_param }}&crime_type={{ crime_type_param }}&lang={{ lang }}" class="{% if active_tab=='risk' %}active{% endif %}">🎯 {{ T("Risk Forecast", lang) }}</a>
+    <a href="?tab=ask&district={{ district_param }}&crime_type={{ crime_type_param }}&lang={{ lang }}" class="{% if active_tab=='ask' %}active{% endif %}">💬 {{ T("Ask KaavalAI", lang) }}</a>
   </div>
 
-  {% if active_tab == 'map' %}
+  {% if no_data_in_range %}
+  <div class="panel empty-state">
+    <div class="empty-icon">🔍</div>
+    <h2>No FIRs match this filter combination</h2>
+    <div class="desc">Try selecting more districts or crime types above — the current combination has zero matching records.</div>
+  </div>
+  {% endif %}
+
+  {% if active_tab == 'map' and not no_data_in_range %}
   <div class="panel">
     <h2>Spatiotemporal Crime Hotspots</h2>
     <div class="desc">DBSCAN clustering on FIR coordinates, grouped by district + crime major-head.</div>
@@ -99,6 +116,23 @@
         <tr><td>{{ h.district }}</td><td>{{ h.crime_type }}</td><td>{{ h.incident_count }}</td></tr>
         {% endfor %}
       </table>
+    </div>
+  </div>
+  <div class="panel compare-panel">
+    <h2>Why This Matters</h2>
+    <div class="grid-2">
+      <div class="compare-col before">
+        <div class="compare-label">Without KaavalAI</div>
+        <div class="compare-item">Manual cross-referencing across station-level Excel sheets</div>
+        <div class="compare-item">Hotspots and patterns discovered only after they escalate</div>
+        <div class="compare-item">Repeat offenders across districts go unnoticed</div>
+      </div>
+      <div class="compare-col after">
+        <div class="compare-label">With KaavalAI</div>
+        <div class="compare-item">One connected view across all 31 districts, updated instantly</div>
+        <div class="compare-item">Emerging spikes flagged automatically before they become patterns</div>
+        <div class="compare-item">Cross-district networks surfaced via graph analysis</div>
+      </div>
     </div>
   </div>
   {% endif %}
@@ -127,7 +161,7 @@
   </div>
   {% endif %}
 
-  {% if active_tab == 'trends' %}
+  {% if active_tab == 'trends' and not no_data_in_range %}
   <div class="panel">
     <h2>Monthly Trend by Crime Type</h2>
     {{ trend_line_div | safe }}
@@ -168,6 +202,7 @@
     <div class="desc">Natural language query over crime records (production version: Catalyst QuickML)</div>
     <form class="ask-form" method="get">
       <input type="hidden" name="tab" value="ask">
+      <input type="hidden" name="lang" value="{{ lang }}">
       <input type="hidden" name="district" value="{{ district_param }}">
       <input type="hidden" name="crime_type" value="{{ crime_type_param }}">
       <input type="text" name="question" value="{{ nl_question or '' }}" placeholder="e.g. Show me theft cases in Mysuru">
@@ -175,12 +210,27 @@
     </form>
     {% if nl_summary %}
     <div class="answer-box">{{ nl_summary }}</div>
+    {% if nl_results %}
     <table>
       <tr><th>Crime No</th><th>District</th><th>Crime Type</th><th>Status</th></tr>
       {% for r in nl_results %}
       <tr><td>{{ r.CrimeNo }}</td><td>{{ r.district }}</td><td>{{ r.crime_type }}</td><td>{{ r.case_status }}</td></tr>
       {% endfor %}
     </table>
+    <a href="/export_nl?question={{ nl_question | urlencode }}" class="export-btn" style="margin-top:12px;display:inline-block;">⬇ Export these results as CSV</a>
+    {% endif %}
+    {% if nl_similar and nl_similar.matches %}
+    <div class="similar-cases">
+      <h3>🔗 Similar Past Cases (Case #{{ nl_similar.case_id }})</h3>
+      <div class="desc">Matched by crime subtype, district, gravity, and shared accused — an investigative starting point, not just a search result.</div>
+      <table>
+        <tr><th>Crime No</th><th>District</th><th>Crime Subtype</th><th>Status</th><th>Match Score</th></tr>
+        {% for m in nl_similar.matches %}
+        <tr><td>{{ m.CrimeNo }}</td><td>{{ m.district }}</td><td>{{ m.crime_subtype }}</td><td>{{ m.case_status }}</td><td>{{ m.similarity_score }}/100</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% endif %}
     {% endif %}
   </div>
   {% endif %}

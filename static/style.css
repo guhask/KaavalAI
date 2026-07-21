@@ -232,6 +232,92 @@ td { padding: 8px 10px; border-bottom: 1px solid #1C2A38; font-family: 'IBM Plex
   min-height: 90px;
 }
 
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.lang-toggle a {
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.lang-toggle a.active {
+  color: var(--gold);
+  background: rgba(201, 162, 39, 0.12);
+  font-weight: 600;
+}
+
+.export-btn {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.export-btn:hover { background: rgba(201, 162, 39, 0.1); }
+
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+}
+
+.empty-icon { font-size: 36px; margin-bottom: 12px; }
+
+.empty-state h2 { margin-bottom: 8px; }
+
+.compare-panel { margin-top: 4px; }
+
+.compare-col {
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+
+.compare-col.before { background: rgba(192, 57, 43, 0.08); border: 1px solid rgba(192, 57, 43, 0.25); }
+.compare-col.after { background: rgba(201, 162, 39, 0.08); border: 1px solid rgba(201, 162, 39, 0.3); }
+
+.compare-label {
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.compare-col.before .compare-label { color: var(--red); }
+.compare-col.after .compare-label { color: var(--gold); }
+
+.compare-item {
+  font-size: 13px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-primary);
+}
+
+.compare-item:last-child { border-bottom: none; }
+
+.similar-cases {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--navy-border);
+}
+
+.similar-cases h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  margin: 0 0 4px;
+  color: var(--gold);
+}
+
 @media (max-width: 900px) {
   .grid-2 { grid-template-columns: 1fr; }
   .container { padding: 16px; }

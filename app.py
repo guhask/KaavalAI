@@ -44,9 +44,10 @@ def load_all_data():
     centrality = pd.read_csv(f"{DATA_DIR}/network_centrality.csv")
     groups = pd.read_csv(f"{DATA_DIR}/organized_crime_groups.csv")
     risk = pd.read_csv(f"{DATA_DIR}/risk_scores.csv")
-    return cases, accused, arrest, chargesheet, hotspots, trends, centrality, groups, risk
+    similar_cases = pd.read_csv(f"{DATA_DIR}/similar_cases.csv")
+    return cases, accused, arrest, chargesheet, hotspots, trends, centrality, groups, risk, similar_cases
 
-CASES, ACCUSED, ARREST, CHARGESHEET, HOTSPOTS, TRENDS, CENTRALITY, GROUPS, RISK = load_all_data()
+CASES, ACCUSED, ARREST, CHARGESHEET, HOTSPOTS, TRENDS, CENTRALITY, GROUPS, RISK, SIMILAR_CASES = load_all_data()
 
 DISTRICTS = sorted(CASES["district"].dropna().unique().tolist())
 CRIME_TYPES = sorted(CASES["crime_type"].dropna().unique().tolist())
@@ -216,6 +217,55 @@ def handle_nl_query(question):
     return summary, result.head(15)
 
 
+def get_similar_cases(case_id, top_n=3):
+    """Looks up the precomputed similar-case matches for a given CaseMasterID,
+    joined with real case details for display."""
+    matches = SIMILAR_CASES[SIMILAR_CASES["CaseMasterID"] == case_id].sort_values("rank").head(top_n)
+    if matches.empty:
+        return []
+    results = []
+    for _, m in matches.iterrows():
+        case_row = CASES[CASES["CaseMasterID"] == m["similar_CaseMasterID"]]
+        if case_row.empty:
+            continue
+        row = case_row.iloc[0]
+        results.append({
+            "CaseMasterID": int(m["similar_CaseMasterID"]),
+            "CrimeNo": row["CrimeNo"], "district": row["district"],
+            "crime_subtype": row["crime_subtype"], "case_status": row["case_status"],
+            "similarity_score": int(m["similarity_score"]),
+        })
+    return results
+
+
+# ---------------------------------------------------------
+# Kannada label translations (static UI toggle — not live translation;
+# matches the "Support for Multiple Languages, English and Kannada" requirement)
+# ---------------------------------------------------------
+KANNADA_LABELS = {
+    "Hotspot Map": "ಅಪರಾಧ ಸ್ಥಳ ನಕ್ಷೆ",
+    "Criminal Network": "ಅಪರಾಧ ಜಾಲ",
+    "Trends & Alerts": "ಪ್ರವೃತ್ತಿಗಳು ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳು",
+    "Risk Forecast": "ಅಪಾಯದ ಮುನ್ಸೂಚನೆ",
+    "Ask KaavalAI": "ಕಾವಲ್‌AI ಅನ್ನು ಕೇಳಿ",
+    "Total FIRs": "ಒಟ್ಟು ಎಫ್‌ಐಆರ್‌ಗಳು",
+    "Districts": "ಜಿಲ್ಲೆಗಳು",
+    "Active Hotspots": "ಸಕ್ರಿಯ ಹಾಟ್‌ಸ್ಪಾಟ್‌ಗಳು",
+    "Crime Networks": "ಅಪರಾಧ ಜಾಲಗಳು",
+    "Red Alerts": "ಕೆಂಪು ಎಚ್ಚರಿಕೆಗಳು",
+    "District": "ಜಿಲ್ಲೆ",
+    "Crime Type": "ಅಪರಾಧ ಪ್ರಕಾರ",
+    "Apply Filters": "ಫಿಲ್ಟರ್‌ಗಳನ್ನು ಅನ್ವಯಿಸಿ",
+}
+
+
+def T(text, lang):
+    """Returns the Kannada label if lang='kn' and a translation exists, else the English original."""
+    if lang == "kn":
+        return KANNADA_LABELS.get(text, text)
+    return text
+
+
 # ---------------------------------------------------------
 # Routes
 # ---------------------------------------------------------
@@ -223,9 +273,15 @@ def handle_nl_query(question):
 def dashboard():
     district_param = request.args.get("district", "")
     crime_type_param = request.args.get("crime_type", "")
-    sel_districts = district_param.split(",") if district_param else DISTRICTS
-    sel_crime_types = crime_type_param.split(",") if crime_type_param else CRIME_TYPES
+    sel_districts = [d for d in district_param.split(",") if d] if district_param else DISTRICTS
+    sel_crime_types = [c for c in crime_type_param.split(",") if c] if crime_type_param else CRIME_TYPES
+    # Guard against a param resolving to nothing usable (e.g. garbled query string)
+    if not sel_districts:
+        sel_districts = DISTRICTS
+    if not sel_crime_types:
+        sel_crime_types = CRIME_TYPES
     active_tab = request.args.get("tab", "map")
+    lang = request.args.get("lang", "en")
 
     filtered = CASES[CASES["district"].isin(sel_districts) & CASES["crime_type"].isin(sel_crime_types)]
 
@@ -238,16 +294,25 @@ def dashboard():
     }
 
     top_groups = GROUPS.sort_values("members", ascending=False).head(8).to_dict("records")
-    sel_group = request.args.get("group_id", top_groups[0]["group_id"] if top_groups else None)
+    sel_group = request.args.get("group_id") or (top_groups[0]["group_id"] if top_groups else None)
 
     network_div, shown_nodes, full_nodes = ("", 0, 0)
-    if sel_group:
+    if sel_group and len(GROUPS[GROUPS["group_id"] == sel_group]):
+        network_div, shown_nodes, full_nodes = build_network_graph(sel_group)
+    elif top_groups:
+        # requested group_id doesn't exist (e.g. stale link) — fall back to the top group
+        sel_group = top_groups[0]["group_id"]
         network_div, shown_nodes, full_nodes = build_network_graph(sel_group)
 
-    nl_question = request.args.get("question", "")
-    nl_summary, nl_results = (None, None)
+    nl_question = request.args.get("question", "").strip()
+    nl_summary, nl_results, nl_similar = (None, None, {})
     if nl_question:
         nl_summary, nl_results = handle_nl_query(nl_question)
+        if nl_results is not None and len(nl_results):
+            # Show "similar past cases" for the first matched case — gives an
+            # investigator a concrete next step, not just a list of FIRs.
+            first_case_id = int(nl_results.iloc[0]["CaseMasterID"])
+            nl_similar = {"case_id": first_case_id, "matches": get_similar_cases(first_case_id)}
 
     alert_emoji = {"Red Alert": "🔴", "Elevated": "🟠", "Watch": "🟡", "Stable": "🟢"}
     trends_display = TRENDS.copy()
@@ -260,18 +325,71 @@ def dashboard():
         districts=DISTRICTS, crime_types=CRIME_TYPES,
         sel_districts=set(sel_districts), sel_crime_types=set(sel_crime_types),
         district_param=",".join(sel_districts), crime_type_param=",".join(sel_crime_types),
-        active_tab=active_tab,
-        map_div=build_hotspot_map(filtered) if active_tab == "map" else None,
-        district_bar_div=build_district_bar(filtered) if active_tab == "map" else None,
+        active_tab=active_tab, lang=lang, T=T,
+        map_div=build_hotspot_map(filtered) if active_tab == "map" and len(filtered) else None,
+        district_bar_div=build_district_bar(filtered) if active_tab == "map" and len(filtered) else None,
         top_hotspots=HOTSPOTS.sort_values("incident_count", ascending=False).head(10).to_dict("records"),
         network_div=network_div, shown_nodes=shown_nodes, full_nodes=full_nodes,
         top_groups=top_groups, sel_group=sel_group,
-        trend_line_div=build_trend_line(filtered) if active_tab == "trends" else None,
+        trend_line_div=build_trend_line(filtered) if active_tab == "trends" and len(filtered) else None,
         top_trends=top_trends,
         risk_bar_div=build_risk_bar() if active_tab == "risk" else None,
         feature_importance_div=build_feature_importance() if active_tab == "risk" else None,
         nl_question=nl_question, nl_summary=nl_summary,
-        nl_results=nl_results.to_dict("records") if nl_results is not None else None,
+        nl_results=nl_results.to_dict("records") if nl_results is not None and len(nl_results) else None,
+        nl_similar=nl_similar,
+        no_data_in_range=(active_tab in ("map", "trends") and len(filtered) == 0),
+    )
+
+
+@app.route("/export")
+def export_csv():
+    """Exports the currently filtered FIR list as a CSV download — turns the
+    'conversation history export' requirement into an actual working button
+    rather than a caption promising a future feature."""
+    import io
+    from flask import Response
+
+    district_param = request.args.get("district", "")
+    crime_type_param = request.args.get("crime_type", "")
+    sel_districts = [d for d in district_param.split(",") if d] or DISTRICTS
+    sel_crime_types = [c for c in crime_type_param.split(",") if c] or CRIME_TYPES
+
+    filtered = CASES[CASES["district"].isin(sel_districts) & CASES["crime_type"].isin(sel_crime_types)]
+    export_cols = ["CrimeNo", "CaseNo", "district", "crime_type", "crime_subtype",
+                   "CrimeRegisteredDate", "case_status", "gravity"]
+    buf = io.StringIO()
+    filtered[export_cols].to_csv(buf, index=False)
+
+    return Response(
+        buf.getvalue(),
+        mimetype="text/csv",
+        headers={"Content-Disposition": "attachment;filename=kaavalai_fir_export.csv"},
+    )
+
+
+@app.route("/export_nl")
+def export_nl_csv():
+    """Exports the actual matched results of an Ask KaavalAI question — reuses
+    handle_nl_query() directly (same matching logic, full result set, not the
+    15-row display cap) rather than approximating via the sidebar's district/
+    crime_type filters, which are unrelated to what the NL question matched
+    and previously produced a CSV that didn't match what was shown on screen."""
+    import io
+    from flask import Response
+
+    question = request.args.get("question", "").strip()
+    _, result = handle_nl_query(question) if question else (None, CASES.iloc[0:0])
+
+    export_cols = ["CrimeNo", "CaseNo", "district", "crime_type", "crime_subtype",
+                   "CrimeRegisteredDate", "case_status", "gravity"]
+    buf = io.StringIO()
+    result[export_cols].to_csv(buf, index=False)
+
+    return Response(
+        buf.getvalue(),
+        mimetype="text/csv",
+        headers={"Content-Disposition": "attachment;filename=kaavalai_query_export.csv"},
     )
 
 
