@@ -8,8 +8,8 @@ hotspot detection, criminal network analysis, predictive risk scoring, and
 natural language querying over crime records, built on the official KSP FIR
 ER schema and deployed natively on Zoho Catalyst.
 
-**Live demo:** https://kaavalai-dashboard-50044016067.development.catalystappsail.in/
-**Demo video:** Coming soon ...
+**Live demo:** https://kaavalai-dashboard-50044016067.development.catalystappsail.in
+**Demo video:** [add your video link here]
 
 ---
 
@@ -20,6 +20,19 @@ ER schema and deployed natively on Zoho Catalyst.
 - 📈 **Trend & anomaly alerts** — recent vs. baseline crime-rate comparison, flagged Red Alert / Elevated / Watch / Stable
 - 🎯 **Explainable risk forecasting** — district-level predictive risk scores with visible feature importances (audit-traceable, not a black box)
 - 💬 **Natural language query** — ask questions like "violent cases in Bengaluru" and get filtered, real-time results
+- 🔗 **Similar Past Cases** — structured similarity matching (crime subtype, district, gravity, shared accused network) surfaced alongside NL query results, giving investigators a concrete lead rather than just a record list
+- 🌐 **Kannada language toggle** — EN/ಕನ್ನಡ switch for all UI labels
+- ⬇️ **CSV export** — download filtered FIR records or NL query results directly
+
+## Note on Similar Past Cases
+
+`BriefFacts` in this synthetic dataset is Faker-generated Lorem Ipsum, not
+real narrative text — so similarity is computed on structured fields (crime
+subtype, district, gravity, case status, shared accused) rather than text
+similarity, which would have produced meaningless-but-plausible-looking
+matches on fake prose. This is likely still the right approach even with
+real KSP narrative text, since structured similarity is more auditable than
+free-text matching for investigative use.
 
 ## Why Flask, not Streamlit
 
@@ -50,7 +63,9 @@ KaavalAI/
 ├── templates/
 │   └── dashboard.html     # Single-page dashboard template (Jinja2)
 ├── static/
-│   └── style.css          # Command-center dark theme
+│   ├── style.css          # Command-center dark theme
+│   ├── favicon.ico
+│   └── apple-touch-icon.png
 ├── data/                  # Synthetic dataset matching KSP's ER schema + precomputed analytics outputs
 ├── generate_dataset.py    # Builds the synthetic ER-schema-aligned dataset
 ├── analytics_engine.py    # Offline: hotspot clustering, network analysis, risk scoring
@@ -80,7 +95,7 @@ python3 app.py
 
 1. `catalyst init` (or `catalyst appsail:add` if already inside a project), select **Python 3.11**, **Catalyst-Managed Runtime**
 2. Point the build path at this folder
-3. `app-config.json` is already configured with a `predeploy` script that vendors dependencies into `./vendor` at deploy time (Catalyst's Python runtime does not auto-install `requirements.txt` — this was one of several deployment issues worked through; see commit history for the debugging trail)
+3. `app-config.json` is already configured with a `predeploy` script that vendors dependencies into `./vendor` at deploy time (Catalyst's Python runtime does not auto-install `requirements.txt`, and the vendored packages must target the runtime's actual architecture — `--platform manylinux2014_x86_64 --implementation cp --python-version 3.11` — not whatever architecture the dependencies were originally installed for; this was one of several deployment issues worked through, see commit history)
 4. `catalyst deploy`
 
 ## Data Store Schema
@@ -101,9 +116,14 @@ ZCQL querying documented as the next iteration.
 - NL query uses keyword/synonym matching, not a full LLM — Catalyst QuickML
   integration is written and documented (`catalyst_cloud_deployment/`) but
   not wired into this deployment
-- Zia AutoML, Zia Services (Kannada voice), and SmartBrowz (PDF export) are
-  documented as planned integrations, not built — see the roadmap in the
-  submission deck
+- Kannada support is currently a UI text-label toggle only; Zia Services
+  voice interaction (speech-to-text/text-to-speech) is documented as the
+  next step, not built
+- Zia AutoML and SmartBrowz (PDF export) are documented as planned
+  integrations, not built — CSV export is implemented; PDF is not
+- Authentication/RBAC is designed and documented (`catalyst_cloud_deployment/functions/auth_login`)
+  but not wired into this deployment — deferred given submission timeline,
+  see roadmap in the submission deck
 
 ## Team
 
